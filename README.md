@@ -4,7 +4,9 @@ Repository to study and reference the use of the error raised when using a doubl
 
 You can find a [Rust playground with the code to reproduce this issue here](https://play.rust-lang.org/?version=stable&mode=debug&edition=2024&gist=7050b0182982e8cd05d4089a4b7475fe).
 
-## The error
+I reported this issue on the [Rust GitHub Repo](https://github.com/rust-lang/rust/issues/139486), so consider checking that one out for potential updates.
+
+## The problem
 
 The double diamond trait error appears whenever a trait dependency pattern analogous to the one illustrated
 in the figure below is used. More specifically, whenever a child trait with associated types has to bind the
@@ -82,4 +84,3 @@ error: aborting due to 3 previous errors
 
 I welcome any suggestions on how to solve this problem. It seems, at least to the humble opinion of my colleagues
 and myself, a potential limitation of the current Rust type system. What do you think?
-
