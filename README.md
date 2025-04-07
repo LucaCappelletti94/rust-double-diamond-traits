@@ -4,7 +4,11 @@ Repository to study and reference the use of the error raised when using a doubl
 
 You can find a [Rust playground with the code to reproduce this issue here](https://play.rust-lang.org/?version=stable&mode=debug&edition=2024&gist=7050b0182982e8cd05d4089a4b7475fe).
 
-I reported this issue on the [Rust GitHub Repo](https://github.com/rust-lang/rust/issues/139486), so consider checking that one out for potential updates.
+I reported this issue on the [Rust GitHub Repo](https://github.com/rust-lang/rust/issues/139486), so consider checking that one out for potential updates. It seems like it may be fixed [`-Znext-solver`](https://github.com/rust-lang/rust/issues/107374) will be merged into the stable version of Rust in the future. At this time, you can see the error disappears when using the `-Znext-solver` flag:
+
+```bash
+RUSTFLAGS="-Znext-solver" cargo check
+```
 
 ## The problem
 
