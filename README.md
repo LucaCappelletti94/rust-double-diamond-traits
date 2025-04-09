@@ -29,19 +29,11 @@ pub trait Red: Ancestor<A = <Self as Red>::R> {
     type R;
 }
 
-pub trait Blue: Ancestor<A = <Self as Blue>::B> {
-    type B;
-}
-
-pub trait Green: Ancestor<A = <Self as Green>::G> {
-    type G;
-}
-
-pub trait RedGreen: Red<R = <Self as RedGreen>::RG> + Blue<B = <Self as RedGreen>::RG> {
+pub trait RedGreen: Red<R = <Self as RedGreen>::RG> {
     type RG;
 }
 
-pub trait GreenBlue: Red<R = <Self as GreenBlue>::GB> + Green<G = <Self as GreenBlue>::GB> {
+pub trait GreenBlue: Red<R = <Self as GreenBlue>::GB> {
     type GB;
 }
 
@@ -88,3 +80,44 @@ error: aborting due to 3 previous errors
 
 I welcome any suggestions on how to solve this problem. It seems, at least to the humble opinion of my colleagues
 and myself, a potential limitation of the current Rust type system. What do you think?
+
+## Simplified example
+
+The traits `Red`, `Blue`, and `Green` are not necessary to reproduce the error, as they can all be grouped into a single
+trait - we will arbitrarily call it `Red`. We illustrate this in the following diagram:
+
+![diagram](diagram_simpler.png)
+
+The following code will yield the same error as the one above:
+
+```rust
+pub trait Ancestor {
+    type A;
+}
+
+pub trait Red: Ancestor<A = <Self as Red>::R> {
+    type R;
+}
+
+pub trait Blue: Ancestor<A = <Self as Blue>::B> {
+    type B;
+}
+
+pub trait Green: Ancestor<A = <Self as Green>::G> {
+    type G;
+}
+
+pub trait RedGreen: Red<R = <Self as RedGreen>::RG> + Blue<B = <Self as RedGreen>::RG> {
+    type RG;
+}
+
+pub trait GreenBlue: Red<R = <Self as GreenBlue>::GB> + Green<G = <Self as GreenBlue>::GB> {
+    type GB;
+}
+
+pub trait RedGreenBlue:
+    RedGreen<RG = <Self as RedGreenBlue>::RGB> + GreenBlue<GB = <Self as RedGreenBlue>::RGB>
+{
+    type RGB;
+}
+```
