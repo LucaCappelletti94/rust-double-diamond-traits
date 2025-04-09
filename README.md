@@ -29,11 +29,19 @@ pub trait Red: Ancestor<A = <Self as Red>::R> {
     type R;
 }
 
-pub trait RedGreen: Red<R = <Self as RedGreen>::RG> {
+pub trait Blue: Ancestor<A = <Self as Blue>::B> {
+    type B;
+}
+
+pub trait Green: Ancestor<A = <Self as Green>::G> {
+    type G;
+}
+
+pub trait RedGreen: Red<R = <Self as RedGreen>::RG> + Blue<B = <Self as RedGreen>::RG> {
     type RG;
 }
 
-pub trait GreenBlue: Red<R = <Self as GreenBlue>::GB> {
+pub trait GreenBlue: Red<R = <Self as GreenBlue>::GB> + Green<G = <Self as GreenBlue>::GB> {
     type GB;
 }
 
@@ -99,19 +107,11 @@ pub trait Red: Ancestor<A = <Self as Red>::R> {
     type R;
 }
 
-pub trait Blue: Ancestor<A = <Self as Blue>::B> {
-    type B;
-}
-
-pub trait Green: Ancestor<A = <Self as Green>::G> {
-    type G;
-}
-
-pub trait RedGreen: Red<R = <Self as RedGreen>::RG> + Blue<B = <Self as RedGreen>::RG> {
+pub trait RedGreen: Red<R = <Self as RedGreen>::RG> {
     type RG;
 }
 
-pub trait GreenBlue: Red<R = <Self as GreenBlue>::GB> + Green<G = <Self as GreenBlue>::GB> {
+pub trait GreenBlue: Red<R = <Self as GreenBlue>::GB> {
     type GB;
 }
 
